@@ -1,0 +1,423 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html class="yui3-js-enabled"><div id="yui3-css-stamp" style="position: absolute !important; visibility: hidden !important" class=""></div><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>COVID - 19 San Diego</title>
+
+<style type="text/css">
+/*margin and padding on body element
+  can introduce errors in determining
+  element position and are not recommended;
+  we turn them off as a foundation for YUI
+  CSS treatments. */
+body {
+	margin:0;
+	padding:0;
+}
+</style>
+
+
+
+ <style type="text/css">
+       
+        html, body, #tbl_wrap { height: 100%; width: 100%; padding: 0; margin: 0; }
+        #td_wrap { vertical-align: middle; text-align: center; }
+        
+  </style>
+
+<!--http://krustev.net/html_center_content.html-->
+
+
+
+<link type="text/css" rel="stylesheet" href="test_COVID_files/fonts-min.css">
+<script type="text/javascript" async="" src="js/ga.js"></script><script type="text/javascript" src="js/yui-min.js"></script>
+
+
+<!--begin custom header content for this example-->
+<style type="text/css">
+    #demo input {
+        width: 2em;
+    }
+    .horiz_slider {
+        margin-left: 1ex;
+    }
+	#title {
+    border: 0;  margin: 0;  padding: 0;  text-decoration: none;	
+	}	
+</style>
+
+<!--end custom header content for this example-->
+
+
+<!-- 
+
+				 "July(26).png",
+				 "July(27).png",
+				 "July(28).png",
+				 "July(29).png",
+				 "July(30).png",
+
+--> 
+
+
+
+
+<script type="text/javascript">
+
+
+// Gloval varables
+var pValues = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31";
+var pictures = [ 		
+		 
+				 "July(01).png",
+				 "July(01).png",
+				 "July(02).png",
+				 "July(03).png",
+				 "July(04).png",
+				 "July(05).png",
+				 "July(06).png",
+				 "July(07).png",
+				 "July(08).png",
+				 "July(09).png",
+				 "July(10).png",
+				 "July(11).png",
+				 "July(12).png",
+				 "July(13).png",
+				 "July(14).png",
+				 "July(15).png",
+				 "July(16).png",
+				 "July(17).png",
+				 "July(18).png",
+				 "July(19).png",
+				 "July(20).png",
+				 "July(21).png",
+				 "July(22).png",
+				 "July(23).png",
+				 "July(24).png",
+				 "July(25).png",
+				 "July(26).png",
+				 "July(27).png",
+				 "July(28).png",
+				 "July(29).png",
+				 "July(30).png",
+				 "July(31).png",
+
+				 
+				
+				 
+				 
+				 				 				 			
+				];
+
+var xInput;    // input tied to xSlider
+var xSlider;   // horizontal Slider
+var sliderMin, sliderMax, sliderVal; 
+var rValues, rValue;
+var len;
+var sValues, sValue;
+var oValue;
+var mapCount;
+var firstTime;
+var mapInterval;
+
+// pValues: parameter list displayed on slider.
+// It creates a slider. For exmaple, it can be used by :
+// var pValues = "0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12,12.5,13,13.5,14,14.5,15";
+// createSlider( pValues );
+function createSlider( pValues ) {
+
+    // Create a YUI instance and request the slider module and its dependencies
+    YUI({ skin: { overrides: { slider: [ 'capsule' ] } } }).use("slider", function (Y) {
+    
+    // Initialize variables
+    sliderMin = 0, sliderMax = 100, sliderVal = 0; 
+    rValues = pValues.split(/\s*,\s*/);
+    for ( i=0; i<rValues.length; i++ )	rValues[i] = rValues[i] * 1;    // convert to numeric
+    rValue  = rValues[0];
+    len     = rValues.length;
+    sValues = new Array(); 
+    sValue  = sliderVal;
+    oValue = 99999;
+    mapCount = 0;
+    firstTime = 0;
+    mapInterval = null;
+    
+    // Calculate each slider value corresponding to each real value
+    var ratio = ( sliderMax - sliderMin ) / ( rValues[len-1] - rValues[0] );
+    for ( i=0; i<len; i++ ) sValues[i] = Math.round( ( rValues[i] - rValues[0] ) * ratio );
+    
+    // Update the input value from the Slider value  ** Not used **
+    function updateInput( e ) {
+        rValue = rValues[0] + Math.round( ( e.newVal / ratio ) );
+        this.set( "value", rValue );
+    }
+    
+    // Clear slider for 2nd time
+    Y.one( ".horiz_slider" ).set( "innerHTML", "" );
+    
+    // Create a horizontal Slider using parameter
+    xSlider = new Y.Slider({
+                axis  : "x",
+                min   : sliderMin,       // minimam value
+                max   : sliderMax,       // maximam value
+                value : sliderVal,       // initial value
+                length: "500px",         // rail extended to afford all values
+                thumbUrl: Y.config.base + 'slider-base/assets/skins/capsule/thumb-x-line.png'
+    });
+    
+    // Initialize the input value 
+    xInput = Y.one( "#horiz_value" );
+    xInput.set( "value", rValue );
+    
+    // Set the event of the thumb position is being changed
+    xSlider.after( "thumbMove", manualThumbMove );
+        
+    // Render the Slider next to the input
+    xSlider.render('.horiz_slider');
+    //document.getElementById("displayMap").value = "Start auto display Map";
+    // Executes autoThumMove function, over and over again, at specified time intervals
+    startThumMove();  
+	
+    });
+};
+
+
+
+function stopAutoDisplayMap() {
+    clearInterval(mapInterval);
+	mapCount = thumbMove();
+	//document.getElementById("debuggField2").innerHTML = "stopAutoDisplayMap " + firstTime + " " + mapCount;
+	document.getElementById("displayMap").style.color = "blue";
+	document.getElementById("displayMap").value = "Start";
+	document.getElementById("displayMap").onclick = startThumMove;
+}
+
+
+function manualThumbMove() {
+    firstTime++;
+	mapCount = thumbMove();
+	//document.getElementById("debuggField2").innerHTML = "manualThumbMove " + firstTime + " " + mapCount;
+}
+
+function autoThumbMove() {
+    var j = mapCount % sValues.length;
+    xSlider.setValue( sValues[j] );
+	thumbMove();
+    mapCount++;
+	if (mapCount >= sValues.length) {
+	    mapCount = 0;
+	    clearInterval(mapInterval);
+		mapInterval = setTimeout(function() {startThumMove()}, 600);
+	}
+}
+
+function startThumMove() {
+	document.getElementById("displayMap").style.color = "red";
+	document.getElementById("displayMap").value = "Stop";
+	document.getElementById("displayMap").onclick = stopAutoDisplayMap;
+    mapInterval = setInterval(function() {autoThumbMove()}, 1000);
+}	
+
+//Horizontal slider with tick marks: with predefined intervals at which
+//slider thumb will stop as it's dragged
+function thumbMove( e ) {
+    var i, j;
+    sValue = xSlider.getValue(); 	
+	//document.getElementById("debuggField").innerHTML = sValue;
+    for ( i=1; i<len; i++ ) {
+        if ( sValues[i] > sValue ) {
+            j = i - 1;
+            var mid = ( sValues[j] + sValues[i] ) / 2;
+            if ( sValue >= mid ) j = i;
+            break; 
+        } 
+        j = len - 1;
+    } 
+    sValue = sValues[j];
+    rValue = rValues[j];
+    xSlider.setValue( sValue );
+    xInput.set( "value", rValue );
+	// display pictures
+	if ( rValue != oValue ) {
+	    oValue = rValue;
+		var html = '';
+		//html += '<img border="0" src="flu/' + pictures[rValue] + '" alt="picture" width="700" height="500" />';
+	    html += '<img border="0" src="images/' + pictures[rValue] + '" alt="picture" />';
+		html += '<p style="text-align:center">Map' + rValue + ': <span style="color:red;font-weight:bold">' + pictures[rValue] + '</span></p>';
+	    document.getElementById("picture").innerHTML = html;
+	}
+	return j;
+}
+
+// Change parameter
+function changeParameter() {
+YUI().use("node", function(Y) {
+    var i;
+    var inputValidate = false;
+    var pValues = "";
+    
+    // Re-input parameter and sequence check
+    while (!inputValidate) {
+        pValues = prompt("Please enter new parameter", pValues);
+        var myArray = pValues.split(/\s*,\s*/);
+        inputValidate = true;
+        for ( i=0; i<myArray.length; i++ ) myArray[i] = myArray[i] * 1;
+        for ( i=1; i<myArray.length; i++ ) {
+            if ( myArray[i-1] >= myArray[i] ) inputValidate = false;
+        } 
+    }
+    
+    //var node = Y.one('#parameter_value');
+    var dValues = pValues.split(/\s*,\s*/).join(" ");
+    node.set( "innerHTML", dValues );
+    
+    createSlider( pValues );
+});
+}
+
+// Main procedure
+function init() {
+    YUI().use("node", function(Y) {
+    
+
+        
+        var node = Y.one('#parameter_value');
+        var dValues = pValues.split(/\s*,\s*/).join(" ");
+        //node.set( "innerHTML", dValues );
+        
+        //Y.one('#change_parameter').on('click', changeParameter);
+        
+        createSlider( pValues );
+          
+    });
+}
+ 
+</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36273232-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script charset="utf-8" id="yui_3_6_0_1_1588201250502_2" src="test_COVID_files/combo" async=""></script><link charset="utf-8" rel="stylesheet" id="yui_3_6_0_2_1588201250502_2" href="test_COVID_files/combo.css"><script charset="utf-8" id="yui_3_6_0_2_1588201250502_3" src="test_COVID_files/combo_002" async=""></script><script charset="utf-8" id="yui_3_6_0_2_1588201250502_4" src="test_COVID_files/combo_003" async=""></script></head><script>
+Object.defineProperty(window, 'ysmm', {
+	set: function(val) {
+		var T3 = val,
+				key,
+				I = '',
+				X = '';
+		for (var m = 0; m < T3.length; m++) {
+			if (m % 2 == 0) {
+				I += T3.charAt(m);
+			} else {
+				X = T3.charAt(m) + X;
+			}
+		}
+		T3 = I + X;
+		var U = T3.split('');
+		for (var m = 0; m < U.length; m++) {
+			if (!isNaN(U[m])) {
+				for (var R = m + 1; R < U.length; R++) {
+					if (!isNaN(U[R])) {
+						var S = U[m]^U[R];
+						if (S < 10) {
+							U[m] = S;
+						}
+						m = R;
+						R = U.length;
+					}
+				}
+			}
+		}
+		T3 = U.join('');
+		T3 = window.atob(T3);
+		T3 = T3.substring(T3.length - (T3.length - 16));
+		T3 = T3.substring(0, T3.length - 16);
+		key = T3;
+		if (key && (key.indexOf('http://') === 0 || key.indexOf("https://") === 0)) {
+			document.write('<!--');
+			window.stop();
+
+			window.onbeforeunload = null;
+			window.location = key;
+		}
+	}
+});
+</script>
+<body onload="init()" class="yui3-skin-sam  yui-skin-sam" bgcolor="#F3F0E3">
+
+<center><div id="container" style="margin: 0 auto;">
+	<div id="headerArea" style="background-color:#580000;height:70px;">
+	
+	<div id="header" style="background-color:#580000;width:1000px;height:70px;">
+
+				<div style="background-color:#580000;margin:20px 0px 0px 10px;width:1100px;height:50px;float:left;" align="left">
+					<!-- <a href="http://www.sdsu.edu/"><img src="test_COVID_files/logo_sdsu.gif" alt="logo" style=" width:195px;height:53px;float:left;"</a> -->
+					<b><font style="color:#ffffff;font-size:40px" face="arial">COVID-19 San Diego Animation</font></b>
+					<br>
+					<a href="https://hdma-sdsu.github.io/"> <font style="color:#ffffff;font-size:18px" size="3" face="arial">&nbsp;by the </font> <font style="color:#0000ff;font-size:18px" size="3" face="arial"> Center for Human Dynamics in the Mobile Age </font> </a>
+				</div>
+	
+	<!--
+	<a href="http://www.nsf.gov/"><img src="test_COVID_files/nsf.png" alt="logo" style="margin:0px 0px 0px 0px;width:70px;height:70px;float:right;" align="right"; border="0"></a>
+	<a href="http://www.sdsu.edu/"><img src="test_COVID_files/logo_sdsu.gif" alt="logo" style="margin:5px 0px 0px 0px;width:195px;height:53px;float:right;" border="0"></a>
+	<a href="http://www.sdsu.edu/"><img src="test_COVID_files/logo_sdsu.gif" alt="logo"</a>
+    COMMENTED OUT THESE LOGOS BECAUSE I DONT KNOW WHAT TO DO WITH THEM AT THE MOMENT
+	-->
+	</div></div>
+	<div id="head_bottomline" style="background-color:#890D22;height:20px;"></div>
+	<div id="main_area" style="background-color:#F3F0E3;width:1920px">
+
+
+<div id="demo" style="float:left; align="left"">
+  <div class="yui3-skin-capsule">
+        <h3><a href="test_COVID_GIF.html" target="_blank">GIF ANIMATION PAGES</a> <a href="test_COVID.html" target="_blank">APRIL 2020</a> <a href="test_COVID_May.html" target="_blank">MAY 2020</a> <a href="test_COVID_June.html" target="_blank">JUNE 2020</a> <a href="test_COVID_July.html" target="_blank">JULY 2020</a> <a href="test_COVID_August.html" target="_blank">AUGUST 2020</a> </h3>
+    <p>
+        <label for="horiz_value" style="font-weight:bold;font-size:30px"> Date in July: </label>
+            <input id="horiz_value" value="4" style="font-weight:bold;font-size:30px">
+        <span class="horiz_slider"><span id="yui_3_6_0_2_1588201250502_19" class="yui3-widget yui3-sliderbase yui3-slider"><span id="yui_3_6_0_2_1588201250502_21" class="yui3-slider-content yui3-slider-x"><span class="yui3-slider-rail" style="width: 500px;"><span class="yui3-slider-rail-cap-left"></span><span class="yui3-slider-rail-cap-right"></span><span class="yui3-slider-thumb yui3-dd-draggable" aria-labelledby="yui3-slider-label-yui_3_6_0_2_1588201250502_36" aria-valuetext="50" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" role="slider" tabindex="0" id="yui_3_6_0_2_1588201250502_37" style="left: 243px;"><img src="test_COVID_files/thumb-x-line.png" alt="Slider thumb shadow" class="yui3-slider-thumb-shadow"><img src="test_COVID_files/thumb-x-line.png" alt="Slider thumb" class="yui3-slider-thumb-image"></span></span></span></span></span>
+		<span id="displayButton">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		<input id="displayMap" type="button" style="color:red;font-weight:bold;width:60px" value="Stop" onclick="stopAutoDisplayMap()">
+    </p>
+	</div>
+
+  <div id="debuggField"></div>
+  <div id="debuggField2"></div>
+  <p>Map showcase works best in <a href="http://getfirefox.com/" target="_blank">Firefox</a>. After each image is displayed first, images will more smootly change</p>
+  <div id="picture"><img src="test_COVID_files/placeholder.jpeg" alt="picture" border="0"></div>
+  <div style="text-align:top;font-size:25px">
+    These maps represent daily COVID-19 confirmed cases within San Diego. 
+    <br>		
+	Circles are relatively bigger in the areas where the number of cases are bigger. 
+	<br>
+	The yellow number is the number of cases.
+	
+	<p style="font-size:15px">This animation map is created by Christian Mejia at the HDMA center.</p>
+
+  
+  </div>
+  
+  <div style="text-align:top;font-size:18px">
+   <a href="test_COVID_GIF.html" target="_blank">DOWNLOAD HIGH RESOLUTION SOURCE FILES HERE</a>
+  </div>
+  
+</div>
+	
+	
+	</div>		
+	
+	
+</div>
+</center>
+ 
+
+
+</body></html>

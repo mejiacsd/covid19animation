@@ -1,0 +1,34 @@
+Nab data
+
+Clean up table by renaming consecutive date names that are compatible with ArcPro
+
+remove extra rows and columns.
+
+export as csv
+
+make new sheet, sort first sheet by largest, and use those the make a formula for the test sheet. 
+
+copy size results to text doc.
+
+
+
+[DO THE ARCPRO THINGY]
+
+
+
+export as png
+
+put in raw folder
+
+
+change dates to codeprint onto the images
+
+codeprint and watermark
+
+resize
+
+change html code
+
+
+
+
