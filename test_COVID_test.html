@@ -1,9 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html class="yui3-js-enabled"><div id="yui3-css-stamp" style="position: absolute !important; visibility: hidden !important" class=""></div><head>
+<link rel="stylesheet" href="./test_COVID_files/style.css">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>COVID - 19 San Diego</title>
 
 <style type="text/css">
+
 /*margin and padding on body element
   can introduce errors in determining
   element position and are not recommended;
@@ -161,7 +163,7 @@ function createSlider( pValues ) {
                 max   : sliderMax,       // maximam value
                 value : sliderVal,       // initial value
                 length: "500px",         // rail extended to afford all values
-                thumbUrl: './test_COVID_files/thumb-x-line.png'
+                thumbUrl: Y.config.base + 'slider-base/assets/skins/capsule/thumb-x-line.png'
     });
     
     // Initialize the input value 
@@ -354,34 +356,59 @@ Object.defineProperty(window, 'ysmm', {
 </script>
 <body onload="init()" class="yui3-skin-sam  yui-skin-sam" bgcolor="#F3F0E3">
 
-<center>
-	<div id="container" style="margin: auto auto;">
+<center><div id="container" style="margin: 0 auto;">
 	<div id="headerArea" style="background-color:#580000;height:70px;">
 	
 	<div id="header" style="background-color:#580000;width:1000px;height:70px;">
 
-				<div style="background-color:#580000;margin:20px 0px 0px 10px;width:1100px;height:50px;float:left;" align="center">
+				<div style="background-color:#580000;margin:20px 0px 0px 10px;width:1100px;height:50px;float:left;" align="left">
 					<!-- <a href="http://www.sdsu.edu/"><img src="test_COVID_files/logo_sdsu.gif" alt="logo" style=" width:195px;height:53px;float:left;"</a> -->
 					<b><font style="color:#ffffff;font-size:40px" face="arial">COVID-19 San Diego Animation</font></b>
 					<br>
 					<a href="https://hdma-sdsu.github.io/"> <font style="color:#ffffff;font-size:18px" size="3" face="arial">&nbsp;by the </font> <font style="color:#0000ff;font-size:18px" size="3" face="arial"> Center for Human Dynamics in the Mobile Age </font> </a>
 				</div>
 	
-
+	<!--
+	<a href="http://www.nsf.gov/"><img src="test_COVID_files/nsf.png" alt="logo" style="margin:0px 0px 0px 0px;width:70px;height:70px;float:right;" align="right"; border="0"></a>
+	<a href="http://www.sdsu.edu/"><img src="test_COVID_files/logo_sdsu.gif" alt="logo" style="margin:5px 0px 0px 0px;width:195px;height:53px;float:right;" border="0"></a>
+	<a href="http://www.sdsu.edu/"><img src="test_COVID_files/logo_sdsu.gif" alt="logo"</a>
+    COMMENTED OUT THESE LOGOS BECAUSE I DONT KNOW WHAT TO DO WITH THEM AT THE MOMENT
+	-->
 	</div></div>
 	<div id="head_bottomline" style="background-color:#890D22;height:20px;"></div>
-		<div id="main_area" style="background-color:#F3F0E3;width:1920px"></div>
+	<div id="main_area" style="background-color:#F3F0E3;width:1920px">
 
 
 <div id="demo" style="float:left; align="left"">
   <div class="yui3-skin-capsule">
         <h3><a href="test_COVID_GIF.html" target="_blank">GIF ANIMATION PAGES</a> <a href="test_COVID.html" target="_blank">APRIL 2020</a> <a href="test_COVID_May.html" target="_blank">MAY 2020</a> <a href="test_COVID_June.html" target="_blank">JUNE 2020</a> <a href="test_COVID_July.html" target="_blank">JULY 2020</a> <a href="test_COVID_August.html" target="_blank">AUGUST 2020</a> </h3>
     <p>
-        <label for="horiz_value" style="font-weight:bold;font-size:30px"> Date in August: </label>
-            <input id="horiz_value" value="4" style="font-weight:bold;font-size:30px">
-        <span class="horiz_slider"><span id="yui_3_6_0_2_1588201250502_19" class="yui3-widget yui3-sliderbase yui3-slider"><span id="yui_3_6_0_2_1588201250502_21" class="yui3-slider-content yui3-slider-x"><span class="yui3-slider-rail" style="width: 500px;"><span class="yui3-slider-rail-cap-left"></span><span class="yui3-slider-rail-cap-right"></span><span class="yui3-slider-thumb yui3-dd-draggable" aria-labelledby="yui3-slider-label-yui_3_6_0_2_1588201250502_36" aria-valuetext="50" aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" role="slider" tabindex="0" id="yui_3_6_0_2_1588201250502_37" style="left: 243px;"><img src="./test_COVID_files/thumb-x-line.png" alt="Slider thumb shadow" class="yui3-slider-thumb-shadow"><img src="./test_COVID_files/thumb-x-line.png" alt="Slider thumb" class="yui3-slider-thumb-image"></span></span></span></span></span>
-		<span id="displayButton">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-		<input id="displayMap" type="button" style="color:red;font-weight:bold;width:60px" value="Stop" onclick="stopAutoDisplayMap()">
+	
+	<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+  <img src="img_nature_wide.jpg" style="width:100%">
+  <div class="text">Caption Text</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="img_snow_wide.jpg" style="width:100%">
+  <div class="text">Caption Two</div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+  <img src="img_mountains_wide.jpg" style="width:100%">
+  <div class="text">Caption Three</div>
+</div>
+
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>	
+		
     </p>
 	</div>
 
@@ -402,7 +429,7 @@ Object.defineProperty(window, 'ysmm', {
   </div>
   
   <div style="text-align:top;font-size:18px">
-   <a href="test_COVID_GIF.html" target="_blank">DOWNLOAD HIGH RESOLUTION SOURCE FILES HERE</a>
+   <a href="test_COVID_GIF.html" target="_blank">DOWNLOAD HIGH RESOLUTION SOURCE FILES HER</a>
   </div>
   
 </div>
